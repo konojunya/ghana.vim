@@ -1,5 +1,5 @@
 let s:ghana_job_id = 0
-let s:bin = "/Users/konojunya/.ghq/src/github.com/konojunya/ghana.vim/app/target/debug/app"
+let s:bin = "/Users/konojunya/.ghq/src/github.com/konojunya/ghana.vim/target/debug/ghana"
 
 " ====================
 " initialize rpc
