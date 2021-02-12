@@ -1,18 +1,16 @@
-let g:ghana_job_id = 0
-" FIXME @konojunya Rustのバイナリを指定する
-let s:bin = ""
+let s:ghana_job_id = 0
+let s:bin = "/Users/konojunya/.ghq/src/github.com/konojunya/ghana.vim/app/target/debug/app"
 
 " ====================
 " initialize rpc
 " ====================
 function! s:init_rpc() abort
-  if g:ghana_job_id == 0
-    " let job_id = jobstart([s:bin], {"rpc": v:true})
-    let job_id = jobstart(["ls"])
+  if s:ghana_job_id == 0
+    let job_id = jobstart([s:bin], {"rpc": v:true})
 
     return job_id
   else
-    return g:ghana_job_id
+    return s:ghana_job_id
   endif
 endfunction
 
@@ -33,7 +31,7 @@ function! s:init() abort
   elseif id == -1
     call ghana#utils#echo_error("ghana: rpc process is executable")
   else
-    let g:ghana_job_id = id
+    let s:ghana_job_id = id
   endif
 endfunction
 
@@ -56,15 +54,11 @@ function! ghana#rpc#pr_saved() abort
     call ghana#compat#win_gotoid(win_id)
   endif
 
-  echo "call rpcnotify(pull_request_save)"
-
   let owner_and_repo = ghana#git#get_owner_and_repo()
   let title = buf_body[0]
   let body = join(buf_body[2:], "\\n")
   let head = ghana#git#get_current_branch()
   let base = ghana#git#get_base_branch()
 
-  let p = {'owner_and_repo': owner_and_repo,'title': title,'body': body,'head': head,'base': base}
-
-  echo p
+  call rpcnotify(s:ghana_job_id, "create_pull_request", owner_and_repo, head, base, title, body)
 endfunction
