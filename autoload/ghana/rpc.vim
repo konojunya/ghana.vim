@@ -32,10 +32,11 @@ call s:init()
 " ====================
 " rpc functions
 " ====================
-function! ghana#rpc#pr_saved(bufnr) abort
+function! ghana#rpc#pr_saved() abort
   let buf_body = getline(1, line("$"))
+  set nomodified
 
-  let win_ids = ghana#compat#win_findbuf(a:bufnr)
+  let win_ids = ghana#compat#win_findbuf(g:ghana_pr_create_bufnf)
   if empty(win_ids)
     return
   endif
