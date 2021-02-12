@@ -29,9 +29,9 @@ function! s:init() abort
 
   let id = s:init_rpc()
   if id == 0
-    echoerr "ghana: can not start rpc process"
+    call ghana#utils#echo_error("ghana: can not start rpc process")
   elseif id == -1
-    echoerr "ghana: rpc process is executable"
+    call ghana#utils#echo_error("ghana: rpc process is executable")
   else
     let g:ghana_job_id = id
   endif
