@@ -17,6 +17,16 @@ function! s:init_rpc() abort
 endfunction
 
 function! s:init() abort
+  " check github token
+  let token = get(g:, "ghana_github_token", "")
+  if token == ""
+    call ghana#utils#echo_error("g:ghana_github_token is required. Set it in init.vim.")
+    return
+  endif
+
+  " export the github token to an environment variable for Rust app
+  let $GHANA_GITHUB_TOKEN = g:ghana_github_token
+
   let id = s:init_rpc()
   if id == 0
     echoerr "ghana: can not start rpc process"
