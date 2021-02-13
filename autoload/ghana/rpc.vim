@@ -1,5 +1,7 @@
 let s:ghana_job_id = 0
-let s:bin = "~/.vim/plugged/ghana.vim/ghana"
+" let s:bin = '~/.vim/plugged/ghana.vim/ghana'
+" for debug
+let s:bin = '~/.ghq/src/github.com/konojunya/ghana.vim/target/debug/ghana'
 
 " ====================
 " initialize rpc
@@ -38,7 +40,19 @@ endfunction
 call s:init()
 
 " ====================
-" rpc functions
+" issue
+" ====================
+function! ghana#rpc#list_issue() abort
+  let owner_and_repo = ghana#git#get_owner_and_repo()
+  call rpcnotify(s:ghana_job_id, "list_issue", owner_and_repo)
+endfunction
+
+function! ghana#rpc#hoge(args) abort
+  echo "called hoge"
+  echo a:args
+endfunction
+" ====================
+" pull request
 " ====================
 function! ghana#rpc#pr_saved() abort
   let buf_body = getline(1, line("$"))

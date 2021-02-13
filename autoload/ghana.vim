@@ -1,4 +1,10 @@
 " ====================
+" issue
+" ====================
+function! ghana#list_issue() abort
+  call ghana#rpc#list_issue()
+endfunction
+" ====================
 " pull request
 " ====================
 function! ghana#create_pull_request(args) abort

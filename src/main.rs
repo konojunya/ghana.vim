@@ -1,7 +1,7 @@
+mod event;
 mod github;
-mod nvim;
 
-use nvim::EventHandler;
+use event::EventHandler;
 
 fn main() {
     let mut event_handler = EventHandler::new();
