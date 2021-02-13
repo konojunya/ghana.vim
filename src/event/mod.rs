@@ -24,7 +24,7 @@ impl From<String> for Messages {
 
 pub struct EventHandler {
     nvim: Neovim,
-    client: GitHub,
+    github: GitHub,
 }
 
 impl EventHandler {
@@ -33,9 +33,9 @@ impl EventHandler {
         let nvim = Neovim::new(session);
         let token = std::env::var("GHANA_GITHUB_TOKEN")
             .expect("GHANA_GITHUB_TOKEN env variable is required.");
-        let client = GitHub::new(token);
+        let github = GitHub::new(token);
 
-        EventHandler { nvim, client }
+        EventHandler { nvim, github }
     }
 
     pub fn recv(&mut self) {
@@ -44,18 +44,20 @@ impl EventHandler {
         for (event, values) in receiver {
             match Messages::from(event) {
                 // issue
-                Messages::ListIssue => {
-                    self.list_issue();
-                    self.nvim
-                        .command(&format!("call ghana#rpc#hoge({:?})", values))
-                        .unwrap();
-                }
+                Messages::ListIssue => self.list_issue(values),
 
                 // pulls
                 Messages::CreatePullRequest => {
                     // call github.create_pull_request
                     self.nvim
-                        .command(&format!("echo \"call pull request: {:?}\"", values))
+                        .command(&format!(
+                            "echo \"rust res1: {}\"",
+                            values
+                                .iter()
+                                .map(|v| v.to_string())
+                                .collect::<Vec<String>>()
+                                .join("")
+                        ))
                         .unwrap();
                 }
                 Messages::Unknown(event) => {

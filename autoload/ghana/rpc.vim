@@ -1,19 +1,20 @@
 let s:ghana_job_id = 0
 " let s:bin = '~/.vim/plugged/ghana.vim/ghana'
 " for debug
-let s:bin = '~/.ghq/src/github.com/konojunya/ghana.vim/target/debug/ghana'
+let s:bin = '/Users/konojunya/.ghq/src/github.com/konojunya/ghana.vim/target/debug/ghana'
 
 " ====================
 " initialize rpc
 " ====================
 function! s:init_rpc() abort
-  if s:ghana_job_id == 0
-    let job_id = jobstart([s:bin], {"rpc": v:true})
-
-    return job_id
-  else
-    return s:ghana_job_id
-  endif
+  " if s:ghana_job_id == 0
+  "   let job_id = jobstart([s:bin], {"rpc": v:true})
+  "
+  "   return job_id
+  " else
+  "   return s:ghana_job_id
+  " endif
+  return jobstart([s:bin], {"rpc": v:true})
 endfunction
 
 function! s:init() abort
@@ -44,7 +45,7 @@ call s:init()
 " ====================
 function! ghana#rpc#list_issue() abort
   let owner_and_repo = ghana#git#get_owner_and_repo()
-  call rpcnotify(s:ghana_job_id, "list_issue", owner_and_repo)
+  call rpcnotify(s:ghana_job_id, "list_issue", "git@github.com:konojunya/ghana.vim.git")
 endfunction
 
 function! ghana#rpc#hoge(args) abort
