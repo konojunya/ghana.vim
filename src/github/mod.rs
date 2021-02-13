@@ -14,4 +14,8 @@ impl GitHub {
             Err(e) => panic!(e),
         }
     }
+
+    pub fn read_token_env() -> String {
+        std::env::var("GHANA_GITHUB_TOKEN").expect("GHANA_GITHUB_TOKEN env variable is required.")
+    }
 }

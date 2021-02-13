@@ -9,4 +9,3 @@ edition = "2018"
 [dependencies]
 octocrab = "0.8.11"
 tokio = { version = "1.2.0", features = ["full"] }
-neovim-lib = "0.6.1"
