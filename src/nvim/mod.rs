@@ -25,8 +25,8 @@ impl EventHandler {
     pub fn new() -> EventHandler {
         let session = Session::new_parent().unwrap();
         let nvim = Neovim::new(session);
-        let token =
-            std::env::var("GHANA_GITHUB_TOKEN").expect("GITHUB_TOKEN env variable is required.");
+        let token = std::env::var("GHANA_GITHUB_TOKEN")
+            .expect("GHANA_GITHUB_TOKEN env variable is required.");
         let github = GitHub::new(token);
 
         EventHandler { nvim, github }
